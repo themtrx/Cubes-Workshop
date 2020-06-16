@@ -11,11 +11,7 @@ class Cube {
         this.imageUrl = imageUrl || 'https://via.placeholder.com/150';
         this.difficulty = difficulty || 0;
     }
-
-    getCube(){
-        
-    }
-
+    
     save(){
         const newCube = {
             id: this.id,
@@ -38,14 +34,10 @@ class Cube {
                 if(error){
                     throw error;
                 }
-    
-                console.log('New Cube succesfully stored');
                 
             })
         });
 
-        console.log('this is after writefile');
-        
     }
 }
 
