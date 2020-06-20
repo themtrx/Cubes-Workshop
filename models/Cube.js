@@ -19,8 +19,7 @@ class Cube {
             difficulty: this.difficulty
         }
 
-        saveCube((newCube))
-
+        saveCube(newCube);
     }
 }
 

@@ -1,13 +1,25 @@
 [{
-    "id": "2042c501-a861-4683-a689-0e18777a8cc5",
+    "id": "f35cb51d-fcfd-425a-be2b-c4f11d09e31c",
     "name": "myCube",
     "description": "this is my cube",
-    "imageUrl": "https://thisimg.com",
+    "imageUrl": "https://thingsidesire.com/wp-content/uploads/2018/06/Eco-Dark-Rubik%E2%80%99s-Cube2.jpg",
     "difficulty": 1
 }, {
-    "id": "7bfac9c8-8a07-4f9b-9cf9-8cc2ae78504b",
+    "id": "4aa75e9c-6e4a-4c91-bc27-58f5177985f6",
     "name": "myCube",
     "description": "this is my cube",
-    "imageUrl": "https://thisimg.com",
+    "imageUrl": "https://thingsidesire.com/wp-content/uploads/2018/06/Eco-Dark-Rubik%E2%80%99s-Cube2.jpg",
     "difficulty": 1
+}, {
+    "id": "42090bc2-20a7-43f7-ba08-ae551517f0f4",
+    "name": "myCube 2",
+    "description": "this is my cube 2",
+    "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/61HpQqVQ37L._SY355_.jpg",
+    "difficulty": 4
+}, {
+    "id": "177e2d76-5e9a-4253-8c89-e04694faf0bc",
+    "name": "myCube 3",
+    "description": "this is my cube 3",
+    "imageUrl": "https://thingsidesire.com/wp-content/uploads/2018/06/Eco-Dark-Rubik%E2%80%99s-Cube2.jpg",
+    "difficulty": 4
 }]
