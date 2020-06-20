@@ -2,6 +2,7 @@
 const { Router } = require('express');
 const { getAllCubes } = require('../controllers/cubes')
 const { getOneCube } = require('../controllers/dbComunicator')
+const Cube = require('../models/Cube')
 
 const router = Router();
 
@@ -32,6 +33,19 @@ router.get('/details/:id', (req, res) =>{
 router.get('/create', (req, res) =>{
     res.render('create', {
         title: 'Create new Cube'
+    })
+})
+router.post('/create', (req, res) =>{
+    const {
+        name,
+        description,
+        imageUrl,
+        difficultyLevel
+    } = req.body
+
+    const cube = new Cube(name, description, imageUrl, difficultyLevel)
+    cube.save(() => {
+        res.redirect('/')
     })
 })
 
