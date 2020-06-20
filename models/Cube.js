@@ -1,7 +1,5 @@
 const { v4 } = require('uuid')
-const fs = require('fs')
-
-const dbFile = './config/database.json';
+const { saveCube } = require('../controllers/dbComunicator')
 
 class Cube {
     constructor (name,description,imageUrl,difficulty) {
@@ -21,22 +19,7 @@ class Cube {
             difficulty: this.difficulty
         }
 
-        fs.readFile(dbFile, (error, cubesDB) => {
-
-            if (error){
-                throw error;
-            }
-            
-            const allCubes = JSON.parse(cubesDB);
-            allCubes.push(newCube);
-
-            fs.writeFile(dbFile, JSON.stringify(allCubes), (error) => {
-                if(error){
-                    throw error;
-                }
-                
-            })
-        });
+        saveCube((newCube))
 
     }
 }
