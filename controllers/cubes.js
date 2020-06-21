@@ -1,12 +1,16 @@
-const fs = require('fs');
-const { getCubes } = require('./dbComunicator');
+const Cube = require('../models/Cube');
 
-const getAllCubes = (callback) => {
-    getCubes((allCubes) => {
-        callback(allCubes)
-    })
+const getAllCubes = async () => {
+    const cubes = await Cube.find().lean();
+    return cubes
+}
+
+const getCube = async (id) => {
+    const cube = Cube.findById(id).lean();
+    return cube
 }
 
 module.exports = {
-    getAllCubes
+    getAllCubes,
+    getCube
 }
