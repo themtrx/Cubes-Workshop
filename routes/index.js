@@ -1,17 +1,17 @@
 // TODO: Require Controllers...
 const { Router } = require('express');
-const { getAllCubes } = require('../controllers/cubes')
-const { getOneCube } = require('../controllers/dbComunicator')
+const { getAllCubes, getCube } = require('../controllers/cubes')
 const Cube = require('../models/Cube')
 
 const router = Router();
 
-router.get('/', (req, res) =>{
-    getAllCubes((cubes) => {
-        res.render('index', {
-            title: 'Welcome to Cubes',
-            cubes
-        })
+router.get('/', async (req, res) =>{
+
+    const cubes = await getAllCubes();
+
+    res.render('index', {
+        title: 'Welcome to Cubes',
+        cubes
     })
 })
 
@@ -21,13 +21,13 @@ router.get('/about', (req, res) =>{
     })
 })
 
-router.get('/details/:id', (req, res) =>{
-    getOneCube(req.params.id, (cube) => {
+router.get('/details/:id', async (req, res) =>{
+    const cube = await getCube(req.params.id)
+
         res.render('details', {
             title: 'Cube details',
             ...cube
         })
-    })
 })
 
 router.get('/create', (req, res) =>{
@@ -43,9 +43,13 @@ router.post('/create', (req, res) =>{
         difficultyLevel
     } = req.body
 
-    const cube = new Cube(name, description, imageUrl, difficultyLevel)
-    cube.save(() => {
-        res.redirect('/')
+    const cube = new Cube({name, description, imageUrl, difficulty: difficultyLevel})
+    cube.save((err) => {
+        if(err) {
+            console.log(err);
+        } else {
+            res.redirect('/')
+        }
     })
 })
 
