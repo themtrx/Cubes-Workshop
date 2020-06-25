@@ -20,4 +20,9 @@ const AccessorySchema = mongoose.Schema({
     }]
 })
 
-module.exports = mongoose.module('Accessory', AccessorySchema);
+
+AccessorySchema.path('imageUrl').validate(function(url){
+    return url.startsWith('http://') || url.startsWith('https://')
+}, 'Image URL is not valid!')
+
+module.exports = mongoose.model('Accessory', AccessorySchema);
