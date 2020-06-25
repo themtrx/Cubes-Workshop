@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const Cube = require('../models/Cube')
 const { getCubeWithAccessories } = require('../controllers/cubes');
-const { route } = require('.');
 
 const router = Router();
 
