@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { saveUser } = require('../controllers/user')
+const { saveUser, verifyUser } = require('../controllers/user')
 
 const router = Router();
 
@@ -15,17 +15,28 @@ router.post('/register', async (req, res) =>{
     const status  = await saveUser(req, res);
 
     if(status) {
-        res.redirect('/')
+        return res.redirect('/')
     }
 
     res.redirect('/')
 })
 
 router.get('/login', async (req, res) =>{
-
-    res.render('loginPage', {
-        title: 'Login',
-    })
+        res.render('loginPage', {
+            title: 'Login'
+        })
 })
+
+router.post('/login', async (req, res) =>{
+
+    const status = await verifyUser(req, res)
+
+    if(status){
+        return res.redirect('/')
+    }
+
+    res.redirect('/')
+})
+
 
 module.exports = router;
