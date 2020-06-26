@@ -2,16 +2,18 @@ const { Router } = require('express');
 const Accessory = require('../models/Accessory')
 const { getAllAccessories } = require('../controllers/accessories')
 const { getCube, updateCube } = require('../controllers/cubes')
+const { userAccess, getUserStatus } = require('../controllers/user')
 
 const router = Router();
 
-router.get('/create/accessory', (req, res) =>{
+router.get('/create/accessory',userAccess, getUserStatus, (req, res) =>{
     res.render('createAccessory', {
-        title: 'Create Accessory'
+        title: 'Create Accessory',
+        isLogged: req.isLogged
     })
 })
 
-router.post('/create/accessory', (req, res) =>{
+router.post('/create/accessory',userAccess, (req, res) =>{
     const {
         name,
         description,
@@ -30,7 +32,7 @@ router.post('/create/accessory', (req, res) =>{
 })
 
 
-router.get('/attach/accessory/:id',async (req, res) =>{
+router.get('/attach/accessory/:id',userAccess,getUserStatus, async (req, res) =>{
 
     const cube = await getCube(req.params.id)
     const accessories = await getAllAccessories()
@@ -45,12 +47,13 @@ router.get('/attach/accessory/:id',async (req, res) =>{
         title: 'Attach Accessory',
         ...cube,
         accessories: notAttachedAccessories,
-        showAccessories: notAttachedAccessories.length>0
+        showAccessories: notAttachedAccessories.length>0,
+        isLogged: req.isLogged
     })
     
 })
 
-router.post('/attach/accessory/:id',async (req, res) =>{
+router.post('/attach/accessory/:id',userAccess, async (req, res) =>{
     const {
         accessory
     } = req.body

@@ -1,15 +1,17 @@
+const env = process.env.NODE_ENV || 'development';
+const config = require('../config/config')[env];
+
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-const jwtKey = 'SOFTUNI-WORKSHOP'
-
 
 const generateToken = data => {
-    const token = jwt.sign(data, jwtKey);
+    const token = jwt.sign(data, config.jwtKey);
 
     return token
 }
+
 const saveUser = async (req, res) => {
     const {
         username,
@@ -54,7 +56,7 @@ const verifyUser = async (req, res) => {
             userID: user._id,
             username: user.username
         })
-        
+
          res.cookie('aid', token)
 
     }
@@ -63,7 +65,55 @@ const verifyUser = async (req, res) => {
     return status
 }
 
+const userAccess = (req, res, next) => {
+
+    const token = req.cookies['aid']
+
+    if(!token) {
+        return res.redirect('/')
+    }
+
+    try{
+        const decodedObj = jwt.verify(token, config.jwtKey)
+        next()
+    }catch (e) {
+
+        res.redirect('/')
+    } 
+
+}
+
+const guestAccess = (req, res, next) => {
+    const token = req.cookies['aid']
+
+    if(token) {
+        return res.redirect('/')
+    }
+
+   next()
+}
+
+const getUserStatus = (req, res, next)=>{
+    const token = req.cookies['aid']
+
+    if(!token) {
+        req.isLogged = false
+    }
+
+    try{
+        const decodedObj = jwt.verify(token, config.jwtKey)
+        req.isLogged = true
+    }catch (e) {
+        req.isLogged = false
+    } 
+
+    next()
+}
+
 module.exports = {
     saveUser,
-    verifyUser
+    verifyUser,
+    userAccess,
+    guestAccess,
+    getUserStatus
 }
