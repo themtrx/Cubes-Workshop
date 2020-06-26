@@ -1,6 +1,8 @@
-const env = process.env.NODE_ENV || 'development';
-const mongoose = require('mongoose')
+require('dotenv').config()
+const env = process.env.NODE_ENV
 const config = require('./config/config')[env];
+
+const mongoose = require('mongoose')
 const express = require('express');
 const indexRouter = require('./routes');
 const cubeRouter = require('./routes/cube')
@@ -10,6 +12,7 @@ const authRouter = require('./routes/auth')
 const app = express();
 
 mongoose.connect(config.databseUrl, { 
+    useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true 
      },

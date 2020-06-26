@@ -3,7 +3,9 @@
 <div class="details">
   <p><span>Description:</span>{{description}}</span> {{difficulty}}</p>
   <a class="btn" href="/">Back</a>
+  {{#if isLogged}}
   <a class="btn" href="/attach/accessory/{{_id}}">Attach Accessory</a>
+  {{/if}}
 </div>
 <h2>Accessories</h2>
 <div class="accessories">
